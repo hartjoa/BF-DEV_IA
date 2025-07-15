@@ -1,4 +1,4 @@
-from Models.Character import Character
+from Models.character import Character
 
 class Hero(Character):
     def __init__(self, x, y):

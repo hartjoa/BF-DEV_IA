@@ -1,5 +1,5 @@
 from abc import ABC
-from Models.Dice import Dice
+from Models.dice import Dice
 
 class Character(ABC):
     def __init__(self, x, y):

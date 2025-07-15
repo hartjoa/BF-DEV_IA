@@ -1,9 +1,10 @@
 import random
-from Models.Hero import Hero
+from Models.hero import Hero
+from Models.monster import Monster
+from Models.fight import Fight
 from rich.table import Table
 from rich.console import Console
 from rich.live import Live
-import time
 import msvcrt
 
 class Grid():
@@ -71,7 +72,7 @@ class Grid():
         
         self.move_hero(key.name)
 
-    def move_hero(self, live, direction):
+    def move_hero(self, direction):
         hero = self.find_hero()
         x, y = hero.x, hero.y
         match direction:
@@ -84,8 +85,12 @@ class Grid():
             case b'M':
                 y += 1
         if self.move_character(hero, x, y):
-            live.update(self.build())
-    
+            for monster in self.monsters_around(x, y):
+                monster.visible = True
+                fight = Fight(hero, monster)
+                fight.run()
+                if 
+            
     def play(self):
         stop = False
         print("ok c'est go")
@@ -94,21 +99,45 @@ class Grid():
                 key = msvcrt.getch()
                 if key == b'\xe0':    # special key
                     direction = msvcrt.getch()  
-                    self.move_hero(live, direction)
+                    self.move_hero(direction)
+                    live.update(self.build())
                 elif key == b'\x1b':
                     stop = True
     
     def is_empty_square(self, x, y):
         return not self.__grid[x][y]
     
+    def monsters_around(self, x, y):
+        result = []
+        min_x = x - 1 if x > 0 else x
+        max_x = x + 1 if x < self.__size - 1 else x
+        min_y = y - 1 if y > 0 else y
+        max_y = y + 1 if y < self.__size - 1 else y
+        for row in range(min_x, max_x + 1):
+            for col in range(min_y, max_y + 1):
+                if isinstance(self.__grid[row][col], Monster):
+                    result.append(self.__grid[row][col])
+        return result
+        
+    def display_cell(cell):
+        if not(cell):
+            return " " 
+        if isinstance(cell, Hero):
+            if cell.dead:
+                return f"[bold red]{str(cell)}"
+            return f"[bold]{str(cell)}"
+        if cell.visible:
+            if cell.dead:
+                return f"[bold red]{str(cell)}"
+            return f"[magenta]{str(cell)}"
+        return " "
+    
     def build(self):
         table = Table(show_header=False, show_lines=True)
         for _ in range(self.__size):
             table.add_column(justify="center")
         for row in self.__grid:
-            table.add_row(*[" " if not cell 
-                            else f"[bold]{str(cell)}" if isinstance(cell, Hero) 
-                            else str(cell) for cell in row])
+            table.add_row(*[Grid.display_cell(cell) for cell in row])
         return table
     
     def get_random_empty_square(self):

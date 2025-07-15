@@ -1,4 +1,4 @@
-from Models.Hero import Hero
+from Models.hero import Hero
 
 class Dwarf(Hero):
     def __init__(self, x, y):

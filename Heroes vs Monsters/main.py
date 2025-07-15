@@ -1,15 +1,15 @@
-from Models.Human import Human
-from Models.Monster import Monster
-from Models.Dwarf import Dwarf
-from Models.Wolf import Wolf
-from Models.Wyrmling import Wyrmling
-from Models.Orc import Orc
-from Models.Grid import Grid
-from Models.Fight import Fight
+from Models.human import Human
+from Models.monster import Monster
+from Models.dwarf import Dwarf
+from Models.wolf import Wolf
+from Models.wyrmling import Wyrmling
+from Models.orc import Orc
+from Models.grid import Grid
+from Models.fight import Fight
 import random
 from os import system
 
-GRID_SIZE = 10
+GRID_SIZE = 6
 MONSTERS_COUNT = 10
 
 MONSTERS = ['Wolf', 'Wyrmling', 'Orc']
@@ -47,6 +47,7 @@ for i in range(MONSTERS_COUNT):
         case _:
             raise ValueError(f"La race de monstre '{monster_race}' n'est pas définie")
     # Add monster to playground
+    monster.visible = False
     playground.add_character(monster)
 
 system("cls")

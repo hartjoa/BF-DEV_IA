@@ -1,5 +1,5 @@
-from Models.Hero import Hero
-from Models.Monster import Monster
+from Models.hero import Hero
+from Models.monster import Monster
 
 class Fight():
     def __init__(self, hero, monster):

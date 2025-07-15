@@ -1,5 +1,5 @@
-from Models.Monster import Monster
-from Models.Dice import Dice
+from Models.monster import Monster
+from Models.dice import Dice
 
 class Wyrmling(Monster):    # Dragonnet
     def __init__(self, x, y):

@@ -1,4 +1,4 @@
-from Models.Character import Character
+from Models.character import Character
 
 class Monster(Character):
     def __init__(self, x, y):
