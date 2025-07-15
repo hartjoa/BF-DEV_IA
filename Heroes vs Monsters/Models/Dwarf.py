@@ -12,3 +12,6 @@ class Dwarf(Hero):
     def show_info(self):
         print("NAIN")
         super().show_info()
+    
+    def __str__(self):
+        return "😶‍🌫️"

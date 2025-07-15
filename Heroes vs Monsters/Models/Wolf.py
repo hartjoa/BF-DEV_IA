@@ -11,4 +11,4 @@ class Wolf(Monster):
         super().show_info()
     
     def __str__(self):
-        return "L"
+        return "🐺"

@@ -9,7 +9,7 @@ from Models.fight import Fight
 import random
 from os import system
 
-GRID_SIZE = 6
+GRID_SIZE = 15
 MONSTERS_COUNT = 10
 
 MONSTERS = ['Wolf', 'Wyrmling', 'Orc']

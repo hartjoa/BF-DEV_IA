@@ -12,6 +12,7 @@ class Grid():
         self.__size = size
         self.__grid = []  # 2D data
         self.__table = None
+        self.__console_message = ""
         self.initialize()
 
     def initialize(self):
@@ -85,11 +86,18 @@ class Grid():
             case b'M':
                 y += 1
         if self.move_character(hero, x, y):
+            self.__console_message = ""
             for monster in self.monsters_around(x, y):
                 monster.visible = True
-                self.build()
+                self.__console_message += f"\nLe monstre {monster} vient d'apparaître\n"
                 fight = Fight(hero, monster)
-                fight.run()
+                log = fight.run()
+                self.__console_message += "\n".join(log)
+                if hero.dead:
+                    self.__console_message += "\n^^^^^Game Over^^^^^"
+                elif monster.dead:
+                    self.__console_message += f"\nYou killed {monster}!"
+                    self.__grid[monster.x][monster.y] = None
             
     def play(self):
         stop = False
@@ -133,12 +141,16 @@ class Grid():
         return " "
     
     def build(self):
-        table = Table(show_header=False, show_lines=True)
+        main_table = Table(show_header=False)
+        main_table.add_column(justify="center")
+        main_table.add_column(justify="center")
+        playground_table = Table(show_header=False, show_lines=True)
         for _ in range(self.__size):
-            table.add_column(justify="center")
+            playground_table.add_column(justify="center")
         for row in self.__grid:
-            table.add_row(*[Grid.display_cell(cell) for cell in row])
-        return table
+            playground_table.add_row(*[Grid.display_cell(cell) for cell in row])
+        main_table.add_row(playground_table, self.__console_message)
+        return main_table
     
     def get_random_empty_square(self):
         while True:

@@ -17,4 +17,4 @@ class Wyrmling(Monster):    # Dragonnet
         super().show_info()
     
     def __str__(self):
-        return "D"
+        return "🐉"

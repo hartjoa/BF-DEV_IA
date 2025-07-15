@@ -17,3 +17,6 @@ class Human(Hero):
     def show_info(self):
         print("HUMAIN")
         super().show_info()
+    
+    def __str__(self):
+        return "🧞"

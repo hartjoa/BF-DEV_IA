@@ -16,4 +16,4 @@ class Orc(Monster):
         super().show_info()
     
     def __str__(self):
-        return "O"
+        return "🧌"
