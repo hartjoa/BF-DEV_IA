@@ -7,8 +7,9 @@ from Models.Orc import Orc
 from Models.Grid import Grid
 from Models.Fight import Fight
 import random
+from os import system
 
-GRID_SIZE = 15
+GRID_SIZE = 10
 MONSTERS_COUNT = 10
 
 MONSTERS = ['Wolf', 'Wyrmling', 'Orc']
@@ -48,6 +49,5 @@ for i in range(MONSTERS_COUNT):
     # Add monster to playground
     playground.add_character(monster)
 
-playground.show()
-
-while not
+system("cls")
+playground.play()
