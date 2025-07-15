@@ -87,9 +87,9 @@ class Grid():
         if self.move_character(hero, x, y):
             for monster in self.monsters_around(x, y):
                 monster.visible = True
+                self.build()
                 fight = Fight(hero, monster)
                 fight.run()
-                if 
             
     def play(self):
         stop = False
