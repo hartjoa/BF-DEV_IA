@@ -1,4 +1,4 @@
-GRID_SIZE = 5
+GRID_SIZE = 8
 MONSTERS_COUNT = 10
 
 MONSTERS = ["Wolf", "Wyrmling", "Orc"]

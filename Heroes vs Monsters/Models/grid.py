@@ -13,6 +13,7 @@ class Grid():
         self.__grid = []  # 2D data
         self.__table = None
         self.__console_message = ""
+        self.__monsters_count = 0
         self.initialize()
 
     def initialize(self):
@@ -43,6 +44,8 @@ class Grid():
 
         self.__grid[x][y] = character
         self.__table = self.build()
+        if isinstance(character, Monster):
+            self.__monsters_count += 1
         
     def move_character(self, character, new_x, new_y):
         old_x, old_y = self.get_character_position(character)
@@ -104,7 +107,8 @@ class Grid():
                     hero = self.get_character(x, y)
                     for monster in self.monsters_around(x, y):
                         monster.visible = True
-                        self.__console_message += f"\nLe monstre {monster} vient d'apparaître\nPressez une touche pour lancer le combat...\n"
+                        self.__console_message = f"\nLe monstre {monster} vient d'apparaître\nPressez une touche pour lancer le combat...\n"
+                        self.__monsters_count -= 1
                         live.update(self.build())
                         msvcrt.getwch()
                         fight = Fight(hero, monster)
@@ -166,6 +170,7 @@ class Grid():
         for row in self.__grid:
             playground_table.add_row(*[Grid.display_cell(cell) for cell in row])
         main_table.add_row(playground_table, self.__console_message)
+        main_table.add_row(f"Monstres encore cachés dans la forêt: {self.__monsters_count}", "")
         return main_table
     
     def get_random_empty_square(self):
