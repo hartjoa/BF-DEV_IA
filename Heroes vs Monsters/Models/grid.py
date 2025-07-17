@@ -126,6 +126,7 @@ class Grid():
                             monster.pv = 0
                             live.update(self.build())
                             msvcrt.getwch()
+                            self.__console_message = ""
                             dead_x, dead_y = self.get_character_position(monster)
                             self.__grid[dead_x][dead_y] = None
                             live.update(self.build())
