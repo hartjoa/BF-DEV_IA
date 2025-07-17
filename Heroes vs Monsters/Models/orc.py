@@ -1,11 +1,12 @@
 from Models.monster import Monster
 from Models.dice import Dice
+import constants as k
 
 class Orc(Monster):
-    def __init__(self, x, y):
-        super().__init__(x, y)
+    def __init__(self):
+        super().__init__()
         self.__bonus_force = 1
-        self.gold = Dice(1, 6).roll()
+        self.inventory[k.GOLD] = Dice(1, 6).roll()
 
     @property
     def force(self):
@@ -16,4 +17,4 @@ class Orc(Monster):
         super().show_info()
     
     def __str__(self):
-        return "🧌"
+        return "💀" if self.dead else "👹"

@@ -1,12 +1,13 @@
 from Models.monster import Monster
 from Models.dice import Dice
+import constants as k
 
 class Wyrmling(Monster):    # Dragonnet
-    def __init__(self, x, y):
-        super().__init__(x, y)
-        self.__bonus_end = 1
-        self.gold = Dice(1, 6).roll()
-        self.leather = Dice(1, 4).roll()
+    def __init__(self):
+        super().__init__()
+        self.__bonus_endurance = 1
+        self.inventory[k.GOLD] = Dice(1, 6).roll()
+        self.inventory[k.LEATHER] = Dice(1, 4).roll()
 
     @property
     def end(self):
@@ -17,4 +18,4 @@ class Wyrmling(Monster):    # Dragonnet
         super().show_info()
     
     def __str__(self):
-        return "🐉"
+        return "💀" if self.dead else "🐉"

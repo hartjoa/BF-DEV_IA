@@ -1,13 +1,13 @@
 from Models.hero import Hero
 
 class Dwarf(Hero):
-    def __init__(self, x, y):
-        super().__init__(x, y)
-        self.__bonus_end = 2
+    def __init__(self):
+        super().__init__()
+        self.__bonus_endurance = 2
 
     @property
-    def end(self):
-        return super().end + self.__bonus_end
+    def endurance(self):
+        return super().endurance + self.__bonus_endurance
 
     def show_info(self):
         print("NAIN")

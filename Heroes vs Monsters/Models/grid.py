@@ -23,9 +23,14 @@ class Grid():
             self.__grid.append(row_squares)
         self.__table = self.build()
 
-    def add_character(self, character):
-        x = character.x
-        y = character.y
+    def get_character_position(self, character):
+        for x, row in enumerate(self.__grid):
+            for y, cell in enumerate(row):
+                if cell == character:
+                    return (x, y)
+        return(None, None)
+
+    def add_character(self, character, x, y):
         if (
             x >= self.__size or 
             y >= self.__size or 
@@ -34,16 +39,15 @@ class Grid():
             ):
             raise IndexError(f"Taille de la grille: {self.__size} x {self.__size}")
         if not self.is_empty_square(x, y):
-            raise IndexError(f"Il y a déjà un personnage ({self.character_on_square(x, y)}) sur la case ({x}, {y})")
+            raise IndexError(f"Il y a déjà un personnage ({self.get_character(x, y)}) sur la case ({x}, {y})")
 
         self.__grid[x][y] = character
         self.__table = self.build()
         
     def move_character(self, character, new_x, new_y):
-        old_x, old_y = character.x, character.y
-        character.x, character.y = new_x, new_y
+        old_x, old_y = self.get_character_position(character)
         try:
-            self.add_character(character)
+            self.add_character(character, new_x, new_y)
         except IndexError:
             character.x, character.y = old_x, old_y
             return False
@@ -52,7 +56,7 @@ class Grid():
         self.__table = self.build()
         return True
         
-    def character_on_square(self, x, y):
+    def get_character(self, x, y):
         return self.__grid[x][y]
 
     def show(self):
@@ -66,16 +70,9 @@ class Grid():
                     return cell
         return None
     
-    def on_press(self, key, live):
-        if key.name == "esc":
-            self.stop = True
-            return False
-        
-        self.move_hero(key.name)
-
     def move_hero(self, direction):
         hero = self.find_hero()
-        x, y = hero.x, hero.y
+        x, y  = self.get_character_position(hero)
         match direction:
             case b'H':
                 x -= 1
@@ -86,18 +83,9 @@ class Grid():
             case b'M':
                 y += 1
         if self.move_character(hero, x, y):
-            self.__console_message = ""
-            for monster in self.monsters_around(x, y):
-                monster.visible = True
-                self.__console_message += f"\nLe monstre {monster} vient d'apparaître\n"
-                fight = Fight(hero, monster)
-                log = fight.run()
-                self.__console_message += "\n".join(log)
-                if hero.dead:
-                    self.__console_message += "\n^^^^^Game Over^^^^^"
-                elif monster.dead:
-                    self.__console_message += f"\nYou killed {monster}!"
-                    self.__grid[monster.x][monster.y] = None
+            return (x, y)
+        else:
+            return (None, None)
             
     def play(self):
         stop = False
@@ -107,8 +95,36 @@ class Grid():
                 key = msvcrt.getch()
                 if key == b'\xe0':    # special key
                     direction = msvcrt.getch()  
-                    self.move_hero(direction)
+                    x, y = self.move_hero(direction)
+                    if (x, y) == (None, None):
+                        continue
+
                     live.update(self.build())
+                    self.__console_message = ""
+                    hero = self.get_character(x, y)
+                    for monster in self.monsters_around(x, y):
+                        monster.visible = True
+                        self.__console_message += f"\nLe monstre {monster} vient d'apparaître\nPressez une touche pour lancer le combat...\n"
+                        live.update(self.build())
+                        msvcrt.getwch()
+                        fight = Fight(hero, monster)
+                        log = fight.run()
+                        self.__console_message += "\n".join(log)
+                        if hero.dead:
+                            self.__console_message += "\n^^^^^Game Over^^^^^\nPressez une touche pour terminer"
+                            hero.pv = 0
+                            live.update(self.build())
+                            msvcrt.getwch()
+                            stop = True
+                            break
+                        elif monster.dead:
+                            self.__console_message += "\nLe héros a tué le monstre!\nPressez une touche pour poursuivre..."
+                            monster.pv = 0
+                            live.update(self.build())
+                            msvcrt.getwch()
+                            dead_x, dead_y = self.get_character_position(monster)
+                            self.__grid[dead_x][dead_y] = None
+                            live.update(self.build())
                 elif key == b'\x1b':
                     stop = True
     
@@ -129,7 +145,7 @@ class Grid():
         
     def display_cell(cell):
         if not(cell):
-            return " " 
+            return "  " 
         if isinstance(cell, Hero):
             if cell.dead:
                 return f"[bold red]{str(cell)}"

@@ -2,15 +2,11 @@ from abc import ABC
 from Models.dice import Dice
 
 class Character(ABC):
-    def __init__(self, x, y):
-        self.__endurance = Character.ability(4, 3)  # Endurance
-        self._force = Character.ability(4, 3)  # Force
-        self.__pv = self.__endurance + Character.modifier(self.__endurance)  # Points de vie (PV)
-        self.__dead = False
-        self.__leather = 0  # Cuir
-        self.__gold = 0     # Or
-        self.__x = x        # Position X
-        self.__y = y        # Position Y
+    def __init__(self):
+        self.__endurance = Character.roll_ability(4, 3)
+        self._force = Character.roll_ability(4, 3)  
+        self.__pv = self.__endurance + Character.modifier(self.__endurance)
+        self.__inventory = {}
     
     # region Static Methods
 
@@ -29,63 +25,9 @@ class Character(ABC):
         if score < 15:
             return 1
         return 2
-
-    # endregion
-
-    @property
-    def dead(self):
-        return self.__dead
-
-    @dead.setter
-    def dead(self, value):
-        self.__dead = value
-
-    @property
-    def force(self):
-        return self._force
-
-    @property
-    def end(self):
-        return self.__endurance
-
-    @property
-    def pv(self):
-        return self.__pv
     
-    @property
-    def gold(self):
-        return self.__gold
-
-    @gold.setter
-    def gold(self, value):
-        self.__gold = value
-
-    @property
-    def leather(self):
-        return self.__leather
-
-    @leather.setter
-    def leather(self, value):
-        self.__leather = value
-    
-    @property
-    def x(self):
-        return self.__x
-    
-    @x.setter
-    def x(self, value):
-        self.__x = value
-    
-    @property
-    def y(self):
-        return self.__y
-    
-    @y.setter
-    def y(self, value):
-        self.__y = value
-
     @staticmethod
-    def ability(roll_count, keep_count):
+    def roll_ability(roll_count, keep_count):
         """
         Utility method that rolls dice and returns the sum of the best dice
         Args:
@@ -103,9 +45,57 @@ class Character(ABC):
         dice_results.sort(reverse = True)
         # Make the sum
         return sum(dice_results[0:keep_count])
-    
-    
 
+    # endregion
+
+    # region properties
+
+    @property
+    def dead(self):
+        return self.__pv < 1
+
+    @property
+    def force(self):
+        return self._force
+
+    @property
+    def endurance(self):
+        return self.__endurance
+
+    @endurance.setter
+    def endurance(self, value):
+        self.__endurance = value
+
+    @property
+    def pv(self):
+        return self.__pv
+    
+    @pv.setter
+    def pv(self, value):
+        self.__pv = value
+
+    @property
+    def gold(self):
+        return self.__gold
+
+    @gold.setter
+    def gold(self, value):
+        self.__gold = value
+
+    @property
+    def leather(self):
+        return self.__leather
+
+    @leather.setter
+    def leather(self, value):
+        self.__leather = value
+
+    @property
+    def inventory(self):
+        return self.__inventory
+
+    # endregion
+    
     def hit(self):
         return Dice(1, 4).roll() + Character.modifier(self._force)
 
@@ -121,5 +111,4 @@ class Character(ABC):
         print(20 * '=' + "\n")
     
     def die(self):
-        self.__dead = True
         self.__pv = 0
