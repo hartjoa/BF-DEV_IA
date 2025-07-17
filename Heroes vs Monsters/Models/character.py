@@ -75,22 +75,6 @@ class Character(ABC):
         self.__pv = value
 
     @property
-    def gold(self):
-        return self.__gold
-
-    @gold.setter
-    def gold(self, value):
-        self.__gold = value
-
-    @property
-    def leather(self):
-        return self.__leather
-
-    @leather.setter
-    def leather(self, value):
-        self.__leather = value
-
-    @property
     def inventory(self):
         return self.__inventory
 

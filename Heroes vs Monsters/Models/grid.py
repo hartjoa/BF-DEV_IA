@@ -171,7 +171,10 @@ class Grid():
         for row in self.__grid:
             playground_table.add_row(*[Grid.display_cell(cell) for cell in row])
         main_table.add_row(playground_table, self.__console_message)
-        main_table.add_row(f"Monstres encore cachés dans la forêt: {self.__monsters_count}", "")
+        hero = self.find_hero()
+        gold = "-" if not hero or "gold" not in hero.inventory else str(hero.inventory["gold"])
+        leather = "-" if not hero or "leather" not in hero.inventory else str(hero.inventory["leather"])
+        main_table.add_row(f"Monstres encore cachés dans la forêt: {self.__monsters_count}", f"Or: {gold}\nCuir: {leather}")
         return main_table
     
     def get_random_empty_square(self):
