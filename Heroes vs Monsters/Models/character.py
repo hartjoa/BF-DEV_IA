@@ -12,6 +12,26 @@ class Character(ABC):
         self.__x = x        # Position X
         self.__y = y        # Position Y
     
+    # region Static Methods
+
+    @staticmethod
+    def modifier(score):
+        """
+        Takes a characteristic's score and returns the modifier that has to be added to it_
+
+        Args:
+            score (int): The characteristic's score used to compute the modifier
+        """
+        if score < 5:
+            return -1
+        if score < 10:
+            return 0
+        if score < 15:
+            return 1
+        return 2
+
+    # endregion
+
     @property
     def dead(self):
         return self.__dead
@@ -84,21 +104,7 @@ class Character(ABC):
         # Make the sum
         return sum(dice_results[0:keep_count])
     
-    @staticmethod
-    def modifier(score):
-        """
-        Takes a characteristic's score and returns the modifier that has to be added to it_
-
-        Args:
-            score (int): The characteristic's score used to compute the modifier
-        """
-        if score < 5:
-            return -1
-        if score < 10:
-            return 0
-        if score < 15:
-            return 1
-        return 2
+    
 
     def hit(self):
         return Dice(1, 4).roll() + Character.modifier(self._force)

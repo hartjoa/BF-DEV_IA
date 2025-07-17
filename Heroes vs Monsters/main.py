@@ -1,11 +1,9 @@
 from Models.human import Human
-from Models.monster import Monster
 from Models.dwarf import Dwarf
 from Models.wolf import Wolf
 from Models.wyrmling import Wyrmling
 from Models.orc import Orc
 from Models.grid import Grid
-from Models.fight import Fight
 import random
 from os import system
 
