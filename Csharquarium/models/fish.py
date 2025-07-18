@@ -6,5 +6,9 @@ class Fish(ABC):
         self.gender = gender
     
     @abstractmethod
-    def eat(food):
+    def eat(self, food):
+        pass
+
+    @abstractmethod
+    def mate(self, other):
         pass
