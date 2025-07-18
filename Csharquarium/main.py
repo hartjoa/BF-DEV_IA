@@ -39,7 +39,7 @@ my_aquarium.add_fish(johnson)
 
 day = 1
 my_aquarium.describe()
-for _ in range(20):
+for _ in range(30):
     print(f"\n === Day {day} ===")
     my_aquarium.elapse_time()
     day += 1
