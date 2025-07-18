@@ -8,6 +8,7 @@ from models.sole import Sole
 from models.sea_bass import SeaBass
 from models.carp import Carp
 import os
+import random
 
 os.system("cls" if os.name == "nt" else "clear")
 
@@ -23,13 +24,13 @@ maurice = Sole("Maurice", "Male")
 maurice.age = 7
 dory = Clownfish("Dory", "Female")
 percy = Clownfish("Percy", "Male")
-aglae = Tuna("Aglae", "Female")
+aglae = Clownfish("Aglae", "Female")
 aglae.age = 16
-ston = Grouper("Ston", "Male")
-muut = Carp("Muût", "Female")
-oriana = SeaBass("Oriana", "Female")
+ston = Clownfish("Ston", "Male")
+muut = Clownfish("Muût", "Male")
+oriana = Clownfish("Oriana", "Female")
 oriana.age = 22
-johnson = Sole("Johnson", "Male")
+johnson = Sole("Johnson", "Female")
 
 my_aquarium.add_fish(maurice)
 my_aquarium.add_fish(dory)
@@ -42,8 +43,20 @@ my_aquarium.add_fish(johnson)
 
 day = 1
 my_aquarium.describe()
-for _ in range(30):
-    print(f"\n === Day {day} ===")
-    my_aquarium.elapse_time()
-    day += 1
-    my_aquarium.describe()
+# for _ in range(8):
+#     print(f"\n === Day {day} ===")
+#     my_aquarium.elapse_time()
+#     day += 1
+#     my_aquarium.describe()
+
+if len(my_aquarium.fishes) > 2:
+    fish1 = random.choice(my_aquarium.fishes)
+    fish2 = random.choice([fish for fish in my_aquarium.fishes if fish != fish1])
+    baby_fish = fish1.mate(fish2)
+
+    if baby_fish:
+        my_aquarium.add_fish(baby_fish)
+else:
+    print("*** You need at least 2 fishes to see reproduction happen")
+
+my_aquarium.describe()

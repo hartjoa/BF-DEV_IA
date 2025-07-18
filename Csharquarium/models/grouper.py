@@ -5,4 +5,4 @@ class Grouper(CarnivorousFish):
         super().__init__(name, gender)
     
     def mate(self, other):
-        pass
+        super().mate(other)

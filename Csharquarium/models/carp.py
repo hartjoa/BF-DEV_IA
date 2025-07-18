@@ -5,4 +5,4 @@ class Carp(HerbivorousFish):
         super().__init__(name, gender)
     
     def mate(self, other):
-        pass
+        return super().mate(other)
