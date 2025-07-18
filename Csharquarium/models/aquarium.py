@@ -28,7 +28,7 @@ class Aquarium:
     def alga_eaten(self, alga):
         alga.pv -= 2
 
-    def elapse_time(self):
+    def run_lifecycle(self):
         log = Log("./log.log")
         # all algae grow
         for alga in self.algae:
@@ -75,6 +75,12 @@ class Aquarium:
                         log.Log(f"Delicious! I loved you, {prey.name}... {fish.name} won 5pv => {fish.pv}")
                 else:
                     raise TypeError("Any fish should be either carnivorous or herbivorous")
+            else:
+                # not hunger fishes try to mate
+                partner = random.choice([other_fish for other_fish in self.fishes if other_fish != fish])
+                baby_fish = fish.mate(partner)
+                if baby_fish:
+                    self.add_fish(baby_fish)
         
         # all the dead algae dissapear
         dead_algae = [alga for alga in self.algae if not alga.is_alive]

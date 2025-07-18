@@ -43,20 +43,8 @@ my_aquarium.add_fish(johnson)
 
 day = 1
 my_aquarium.describe()
-# for _ in range(8):
-#     print(f"\n === Day {day} ===")
-#     my_aquarium.elapse_time()
-#     day += 1
-#     my_aquarium.describe()
-
-if len(my_aquarium.fishes) > 2:
-    fish1 = random.choice(my_aquarium.fishes)
-    fish2 = random.choice([fish for fish in my_aquarium.fishes if fish != fish1])
-    baby_fish = fish1.mate(fish2)
-
-    if baby_fish:
-        my_aquarium.add_fish(baby_fish)
-else:
-    print("*** You need at least 2 fishes to see reproduction happen")
-
-my_aquarium.describe()
+for _ in range(2):
+    print(f"\n === Day {day} ===")
+    my_aquarium.run_lifecycle()
+    day += 1
+    my_aquarium.describe()
