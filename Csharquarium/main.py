@@ -20,12 +20,15 @@ my_aquarium.add_alga(alga2)
 my_aquarium.add_alga(alga3)
 
 maurice = Sole("Maurice", "Male")
+maurice.age = 7
 dory = Clownfish("Dory", "Female")
 percy = Clownfish("Percy", "Male")
 aglae = Tuna("Aglae", "Female")
+aglae.age = 16
 ston = Grouper("Ston", "Male")
 muut = Carp("Muût", "Female")
-open = SeaBass("Open", "Female")
+oriana = SeaBass("Oriana", "Female")
+oriana.age = 22
 johnson = Sole("Johnson", "Male")
 
 my_aquarium.add_fish(maurice)
@@ -34,7 +37,7 @@ my_aquarium.add_fish(percy)
 my_aquarium.add_fish(aglae)
 my_aquarium.add_fish(ston)
 my_aquarium.add_fish(muut)
-my_aquarium.add_fish(open)
+my_aquarium.add_fish(oriana)
 my_aquarium.add_fish(johnson)
 
 day = 1

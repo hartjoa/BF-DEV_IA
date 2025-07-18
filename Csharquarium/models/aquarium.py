@@ -12,7 +12,7 @@ class Aquarium:
         self.fishes = fishes
     
     def add_fish(self, fish):
-        if isinstance(fish, Fish):
+        if isinstance(fish, Fish) and fish.is_alive:
             self.fishes.append(fish)
 
     def add_alga(self, alga):

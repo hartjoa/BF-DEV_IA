@@ -1,9 +1,9 @@
 from abc import ABC
 
 class AquaticOrganism(ABC):
-    def __init__(self):
+    def __init__(self, age = 0):
         self.pv = 10
-        self.age = 0
+        self.age = age
 
     @property
     def is_alive(self):
