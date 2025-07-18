@@ -1,3 +1,5 @@
-class Alga:
+from models.aquatic_organism import AquaticOrganism
+
+class Alga(AquaticOrganism):
     def __init__(self):
-        pass
+        super().__init__()

@@ -45,4 +45,9 @@ while len(my_aquarium.fishes) > 1:
     day += 1
     my_aquarium.describe()
 
-print(f"\nOnly one survivor: {my_aquarium.fishes[0].name}")
+survivor = my_aquarium.fishes[0]
+print(f"\nOnly one survivor: {survivor.name}")
+
+while survivor.is_alive:
+    survivor.pv -= 2
+    print(survivor)
