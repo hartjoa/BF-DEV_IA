@@ -12,4 +12,4 @@ class CarnivorousFish(Fish):
             print(f"Sorry... That ain't no good food for {self.name}")
     
     def __str__(self):
-        return f"{self.name} ({self.gender[0].upper()}): {self.__class__.__name__} (carnivorous) [{self.pv} pv] -- {'alive' if self.is_alive else 'dead'}"
+        return f"{self.name} ({self.gender[0].upper()}): {self.__class__.__name__} (carnivorous) [{self.pv} pv] -- {'🦈' if self.is_alive else '💀'}"
