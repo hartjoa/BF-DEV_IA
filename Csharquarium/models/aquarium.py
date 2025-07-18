@@ -2,6 +2,8 @@ from models.alga import Alga
 from models.fish import Fish
 from models.herbivorous_fish import HerbivorousFish
 from models.carnivorous_fish import CarnivorousFish
+from models.log import Log
+
 import random 
 
 class Aquarium:
@@ -27,6 +29,7 @@ class Aquarium:
         alga.pv -= 2
 
     def elapse_time(self):
+        log = Log("./log.log")
         # all algae grow
         for alga in self.algae:
             alga.pv += 1
@@ -38,40 +41,48 @@ class Aquarium:
                 # fish is hungry
                 if isinstance(fish, HerbivorousFish):
                     # herbivorous
-                    print(f"{fish.name} is looking for an alga to eat...")
+                    log.Log(f"{fish.name} is looking for an alga to eat...")
                     if len(self.algae) == 0:
                         # no more alga in the aquarium
-                        print(f"There's no more alga left to feed you, poor {fish.name}")
+                        log.Log(f"There's no more alga left to feed you, poor {fish.name}")
                         continue
                     # eat an alga
                     alga = random.choice(self.algae)
                     # alga is harmed
                     alga.pv -= 2
+                    log.Log(f"Alga loses 2 pv => {alga.pv}")
                     # fish is fed
                     fish.pv += 3
+                    log.Log(f"Delicious! {fish.name} won 3pv => {fish.pv}")
                 elif isinstance(fish, CarnivorousFish):
+                    log.Log(f"{fish.name} is looking for a fish to eat...")
                     if len(self.fishes) < 2:
                         # only fish in the aquarium
-                        print(f"There's no more fish left to feed you, poor {fish.name}")
+                        log.Log(f"There's no more fish left to feed you, poor {fish.name}")
                         continue
                     # eat a fish
-                    prey = None
-                    while not prey or prey == fish: # cannot eat yourself
-                        prey = random.choice(self.fishes)
-                        if prey != fish:
-                            # prey is harmed
-                            prey.pv -= 4
-                    # fish is fed
-                    fish.pv += 5
+                    prey = random.choice(self.fishes)
+                    if type(prey) == type(fish):
+                        # cannot eat a fish like you
+                        log.Log(f"Sorry {fish.name}, cannot eat a fish like you")
+                    else:
+                        # prey is harmed
+                        prey.pv -= 4
+                        log.Log(f"{prey.name} loses 4 pv => {prey.pv}")
+                        # fish is fed
+                        fish.pv += 5
+                        log.Log(f"Delicious! I loved you, {prey.name}... {fish.name} won 5pv => {fish.pv}")
                 else:
                     raise TypeError("Any fish should be either carnivorous or herbivorous")
         
         # all the dead algae dissapear
         dead_algae = [alga for alga in self.algae if not alga.is_alive]
         for dead_alga in dead_algae:
+            log.Log("An alga died...")
             self.algae.remove(dead_alga)
         
         # all the dead fishes dissapear
         dead_fishes = [fish for fish in self.fishes if not fish.is_alive]
         for dead_fish in dead_fishes:
+            log.Log(f"A fish died... RIP {dead_fish.name}")
             self.fishes.remove(dead_fish)

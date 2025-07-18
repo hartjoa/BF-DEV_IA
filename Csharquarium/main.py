@@ -22,7 +22,7 @@ my_aquarium.add_alga(alga3)
 maurice = Sole("Maurice", "Male")
 dory = Clownfish("Dory", "Female")
 percy = Clownfish("Percy", "Male")
-aglae = Tuna("Aglaë", "Female")
+aglae = Tuna("Aglae", "Female")
 ston = Grouper("Ston", "Male")
 muut = Carp("Muût", "Female")
 open = SeaBass("Open", "Female")
@@ -39,7 +39,7 @@ my_aquarium.add_fish(johnson)
 
 day = 1
 my_aquarium.describe()
-for _ in range(100):
+for _ in range(20):
     print(f"\n === Day {day} ===")
     my_aquarium.elapse_time()
     day += 1
