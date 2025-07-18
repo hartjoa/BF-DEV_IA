@@ -55,6 +55,7 @@ class Aquarium:
                         print(f"There's no more fish left to feed you, poor {fish.name}")
                         continue
                     # eat a fish
+                    prey = None
                     while not prey or prey == fish: # cannot eat yourself
                         prey = random.choice(self.fishes)
                         if prey != fish:
@@ -73,4 +74,4 @@ class Aquarium:
         # all the dead fishes dissapear
         dead_fishes = [fish for fish in self.fishes if not fish.is_alive]
         for dead_fish in dead_fishes:
-            self.fiches.remove(dead_fish)
+            self.fishes.remove(dead_fish)

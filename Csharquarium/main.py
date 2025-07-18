@@ -39,15 +39,8 @@ my_aquarium.add_fish(johnson)
 
 day = 1
 my_aquarium.describe()
-while len(my_aquarium.fishes) > 1:
+for _ in range(100):
     print(f"\n === Day {day} ===")
     my_aquarium.elapse_time()
     day += 1
     my_aquarium.describe()
-
-survivor = my_aquarium.fishes[0]
-print(f"\nOnly one survivor: {survivor.name}")
-
-while survivor.is_alive:
-    survivor.pv -= 2
-    print(survivor)
