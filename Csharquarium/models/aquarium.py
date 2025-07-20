@@ -21,8 +21,9 @@ class Aquarium:
     
     def describe(self):
         print("Algae in the aquarium:", len(self.algae))
+        for alga in self.algae:
+            print(alga)
         print("Fishes in the aquarium:", len(self.fishes))
-        print()
         print("\n".join([str(fish) for fish in self.fishes]))
 
     def alga_eaten(self, alga):

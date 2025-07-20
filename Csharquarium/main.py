@@ -23,14 +23,14 @@ my_aquarium.add_alga(alga3)
 maurice = Sole("Maurice", "Male")
 maurice.age = 7
 dory = Clownfish("Dory", "Female")
-percy = Clownfish("Percy", "Male")
-aglae = Clownfish("Aglae", "Female")
+percy = Tuna("Percy", "Male")
+aglae = Sole("Aglae", "Female")
 aglae.age = 16
-ston = Clownfish("Ston", "Male")
+ston = Carp("Ston", "Male")
 muut = Clownfish("Muût", "Male")
-oriana = Clownfish("Oriana", "Female")
+oriana = Tuna("Oriana", "Female")
 oriana.age = 22
-johnson = Sole("Johnson", "Female")
+johnson = Carp("Johnson", "Female")
 
 my_aquarium.add_fish(maurice)
 my_aquarium.add_fish(dory)
@@ -42,9 +42,11 @@ my_aquarium.add_fish(oriana)
 my_aquarium.add_fish(johnson)
 
 day = 1
-my_aquarium.describe()
-for _ in range(2):
-    print(f"\n === Day {day} ===")
-    my_aquarium.run_lifecycle()
-    day += 1
+
+while True:
+    _ = input()
+    print(f"=== DAY {day} ===")
     my_aquarium.describe()
+    my_aquarium.run_lifecycle()
+    day +=1
+    
