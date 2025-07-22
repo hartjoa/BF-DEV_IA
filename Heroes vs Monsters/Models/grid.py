@@ -10,7 +10,7 @@ import msvcrt
 class Grid():
     def __init__(self, size):
         self.__size = size
-        self.__grid = []  # 2D data
+        self.__grid = []
         self.__table = None
         self.__console_message = ""
         self.__monsters_count = 0
@@ -154,12 +154,12 @@ class Grid():
             return "  " 
         if isinstance(cell, Hero):
             if cell.dead:
-                return f"[bold red]{str(cell)}"
-            return f"[bold]{str(cell)}"
+                return f"{str(cell)}"
+            return f"{str(cell)}"
         if cell.visible:
             if cell.dead:
-                return f"[bold red]{str(cell)}"
-            return f"[magenta]{str(cell)}"
+                return f"{str(cell)}"
+            return f"{str(cell)}"
         return " "
     
     def build(self):
