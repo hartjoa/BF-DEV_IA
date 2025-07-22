@@ -17,15 +17,18 @@ class Fish(AquaticOrganism):
     def mate(self, other):
         if self.age < SEXUAL_MATURITY:
             return None
-        
+        is_mate_possible = True
         print(f"*** {self.name} is trying to mate with {other.name}")
         if other.age < SEXUAL_MATURITY:
             print(f"{other.name} is too young to mate!")
-        elif type(self) != type(other):
+            is_mate_possible = False
+        if type(self) != type(other):
             print(f"A {self.__class__.__name__} cannot mate with a {other.__class__.__name__}!")
-        elif self.gender == other.gender:
+            is_mate_possible = False
+        if self.gender == other.gender:
             print(f"Two {'males' if self.gender == 'M' else 'females'} cannot mate together!")
-        else:
+            is_mate_possible = False
+        if is_mate_possible:
             print("*** A baby fish is born! Welcome to:")
             baby_fish = type(self)(f"baby-{random.randint(1, 1_000_000)}", "M" if random.random() < .5 else "F")
             print(baby_fish)

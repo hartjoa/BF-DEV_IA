@@ -46,7 +46,7 @@ day = 1
 while True:
     _ = input()
     print(f"=== DAY {day} ===")
-    my_aquarium.describe()
     my_aquarium.run_lifecycle()
+    my_aquarium.describe()
     day +=1
     
