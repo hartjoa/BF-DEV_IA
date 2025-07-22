@@ -7,8 +7,11 @@ from models.tuna import Tuna
 from models.sole import Sole
 from models.sea_bass import SeaBass
 from models.carp import Carp
+from utils import Utils
+
 import os
 import random
+from colorama import Fore
 
 os.system("cls" if os.name == "nt" else "clear")
 
@@ -45,7 +48,8 @@ day = 1
 
 while True:
     _ = input()
-    print(f"=== DAY {day} ===")
+    Utils.nice_print(f"=== DAY {day} ===", Fore.YELLOW)
+    print()
     my_aquarium.run_lifecycle()
     my_aquarium.describe()
     day +=1

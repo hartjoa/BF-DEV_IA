@@ -1,7 +1,9 @@
 from abc import abstractmethod
 from models.aquatic_organism import AquaticOrganism
-import random
+from utils import Utils
+from colorama import Fore
 
+import random
 SEXUAL_MATURITY = 3
 
 class Fish(AquaticOrganism):
@@ -18,7 +20,7 @@ class Fish(AquaticOrganism):
         if self.age < SEXUAL_MATURITY:
             return None
         is_mate_possible = True
-        print(f"*** {self.name} is trying to mate with {other.name}")
+        Utils.nice_print(f"{self.name} is trying to mate with {other.name}", Fore.MAGENTA)
         if other.age < SEXUAL_MATURITY:
             print(f"{other.name} is too young to mate!")
             is_mate_possible = False
@@ -29,7 +31,7 @@ class Fish(AquaticOrganism):
             print(f"Two {'males' if self.gender == 'M' else 'females'} cannot mate together!")
             is_mate_possible = False
         if is_mate_possible:
-            print("*** A baby fish is born! Welcome to:")
+            Utils.nice_print("A baby fish is born! Welcome to:", Fore.MAGENTA)
             baby_fish = type(self)(f"baby-{random.randint(1, 1_000_000)}", "M" if random.random() < .5 else "F")
             print(baby_fish)
             return baby_fish
