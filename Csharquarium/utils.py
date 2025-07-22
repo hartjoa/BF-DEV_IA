@@ -3,7 +3,7 @@ init(autoreset=True)
 
 class Utils:
     @staticmethod
-    def nice_print(message, fore=Fore.BLACK):
+    def nice_print(message: str, fore: str=Fore.BLACK) -> None:
         print(f"{fore}{message}")
 
 

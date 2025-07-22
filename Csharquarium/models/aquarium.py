@@ -5,33 +5,34 @@ from models.carnivorous_fish import CarnivorousFish
 from models.log import Log
 from utils import Utils
 
+from typing import List
 import random
 from colorama import Fore
 
 class Aquarium:
-    def __init__(self, fishes = [], algae = []):
-        self.algae = algae
-        self.fishes = fishes
+    def __init__(self, fishes: List[Fish] = None, algae: List[Alga] = None) -> None:
+        self.algae = algae if algae is not None else []
+        self.fishes = fishes if fishes is not None else []
     
-    def add_fish(self, fish):
+    def add_fish(self, fish: Fish) -> None:
         if isinstance(fish, Fish) and fish.is_alive:
             self.fishes.append(fish)
 
-    def add_alga(self, alga):
+    def add_alga(self, alga: Alga) -> None:
         if isinstance(alga, Alga):
             self.algae.append(alga)
     
-    def describe(self):
+    def describe(self) -> None:
         Utils.nice_print(f"Algae in the aquarium: {len(self.algae)}", Fore.GREEN)
         for alga in self.algae:
             print(alga)
         Utils.nice_print(f"Fishes in the aquarium: {len(self.fishes)}", Fore.BLUE)
         print("\n".join([str(fish) for fish in self.fishes]))
 
-    def alga_eaten(self, alga):
+    def alga_eaten(self, alga: Alga) -> None:
         alga.pv -= 2
 
-    def run_lifecycle(self):
+    def run_lifecycle(self) -> None:
         log = Log("./log.log")
 
         # everybody gets older

@@ -7,7 +7,7 @@ import random
 SEXUAL_MATURITY = 3
 
 class Fish(AquaticOrganism):
-    def __init__(self, name, gender):
+    def __init__(self, name: str, gender: str) -> None:
         super().__init__()
         self.name = name
         self.gender = "F" if gender and gender[0].upper() == "F" else "M"
@@ -16,7 +16,7 @@ class Fish(AquaticOrganism):
     def eat(self, food):
         pass
 
-    def mate(self, other):
+    def mate(self, other: "Fish") -> None:
         if self.age < SEXUAL_MATURITY:
             return None
         is_mate_possible = True
@@ -37,5 +37,5 @@ class Fish(AquaticOrganism):
             return baby_fish
         return None
     
-    def __str__(self, fish_type):
+    def __str__(self, fish_type: str) -> str:
         return f"{self.name} ({self.gender[0].upper()}), {self.age} days: {self.__class__.__name__} ({fish_type})[{self.pv} pv] -- {'🐠' if self.is_alive else '💀'}"
