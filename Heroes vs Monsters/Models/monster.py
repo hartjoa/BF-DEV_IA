@@ -12,3 +12,11 @@ class Monster(Character):
     @visible.setter
     def visible(self, value):
         self.__visible = value
+
+    def give_resources(self, character):
+        for resource, amount in self.inventory.items():
+            if resource in character.inventory:
+                character.inventory[resource] +=  amount
+            else:
+                character.inventory[resource] = amount
+

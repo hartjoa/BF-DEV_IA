@@ -124,6 +124,7 @@ class Grid():
                         elif monster.dead:
                             self.__console_message += "\nLe héros a tué le monstre!\nPressez une touche pour poursuivre..."
                             monster.pv = 0
+                            monster.give_resources(hero)
                             live.update(self.build())
                             msvcrt.getwch()
                             self.__console_message = ""
@@ -172,8 +173,8 @@ class Grid():
             playground_table.add_row(*[Grid.display_cell(cell) for cell in row])
         main_table.add_row(playground_table, self.__console_message)
         hero = self.find_hero()
-        gold = "-" if not hero or "gold" not in hero.inventory else str(hero.inventory["gold"])
-        leather = "-" if not hero or "leather" not in hero.inventory else str(hero.inventory["leather"])
+        gold = "-" if not hero or "Gold" not in hero.inventory else str(hero.inventory["Gold"])
+        leather = "-" if not hero or "Leather" not in hero.inventory else str(hero.inventory["Leather"])
         main_table.add_row(f"Monstres encore cachés dans la forêt: {self.__monsters_count}", f"Or: {gold}\nCuir: {leather}")
         return main_table
     
