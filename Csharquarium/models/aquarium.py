@@ -31,6 +31,11 @@ class Aquarium:
 
     def run_lifecycle(self):
         log = Log("./log.log")
+
+        # everybody gets older
+        for fish in self.fishes:
+            fish.age += 1
+
         # all algae grow
         for alga in self.algae:
             alga.pv += 1
@@ -38,6 +43,7 @@ class Aquarium:
         # all fishes get hungrier
         for fish in self.fishes:
             fish.pv -= 1
+            
             # hunger fishes eat
             if fish.pv <= 5:
                 # fish is hungry
@@ -94,10 +100,6 @@ class Aquarium:
         for dead_fish in dead_fishes:
             log.Log(f"A fish died... RIP {dead_fish.name}")
             self.fishes.remove(dead_fish)
-
-        # everybody gets older
-        for fish in self.fishes:
-            fish.age += 1
         
         for alga in self.algae:
             alga.age +=1
