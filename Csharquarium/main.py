@@ -17,6 +17,7 @@ from colorama import Fore
 os.system("cls" if os.name == "nt" else "clear")
 
 my_aquarium = Aquarium()
+
 # add fishes
 species = [Carp, Clownfish, Grouper, SeaBass, Sole, Tuna]
 for sp in species:
@@ -24,20 +25,15 @@ for sp in species:
         fish = Fish.generate(sp)
         my_aquarium.add_fish(fish)
 
-alga1 = Alga()
-alga2 = Alga()
-alga3 = Alga()
-my_aquarium.add_alga(alga1)
-my_aquarium.add_alga(alga2)
-my_aquarium.add_alga(alga3)
+# add algae
+for _ in range(5):
+    my_aquarium.add_alga(Alga())
 
 day = 1
 
-while True:
-    _ = input()
-    Utils.nice_print(f"=== DAY {day} ===", Fore.YELLOW)
-    print()
+# run simulation
+for day in range(25):
+    Utils.nice_print(f"\n=== DAY {day + 1} ===", Fore.YELLOW)
     my_aquarium.run_lifecycle()
     my_aquarium.describe()
-    day +=1
     

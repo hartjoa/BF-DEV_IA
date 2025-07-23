@@ -22,15 +22,14 @@ class Aquarium:
         if isinstance(alga, Alga):
             self.algae.append(alga)
     
-    def describe(self) -> None:
+    def describe(self, verbose: bool = False) -> None:
         Utils.nice_print(f"Algae in the aquarium: {len(self.algae)}", Fore.GREEN)
-        for alga in self.algae:
-            print(alga)
+        if verbose:
+            for alga in self.algae:
+                print(alga)
         Utils.nice_print(f"Fishes in the aquarium: {len(self.fishes)}", Fore.BLUE)
-        print("\n".join([str(fish) for fish in self.fishes]))
-
-    def alga_eaten(self, alga: Alga) -> None:
-        alga.pv -= 2
+        if verbose:
+            print("\n".join([str(fish) for fish in self.fishes]))
 
     def run_lifecycle(self) -> None:
         log = Log("./log.log")
@@ -84,7 +83,7 @@ class Aquarium:
         # all the dead algae dissapear
         dead_algae = [alga for alga in self.algae if not alga.is_alive]
         for dead_alga in dead_algae:
-            print("An alga died...")
+            Utils.nice_print(f"An alga died...", Fore.RED)
             self.algae.remove(dead_alga)
         
         # all the dead fishes dissapear

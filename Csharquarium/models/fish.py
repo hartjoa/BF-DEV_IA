@@ -25,26 +25,29 @@ class Fish(AquaticOrganism):
         return tp(name, gender)
         
 
-    def mate(self, other: "Fish") -> None:
+    def mate(self, other: "Fish", verbose: bool = False) -> None:
         if self.age < SEXUAL_MATURITY:
             return None
         is_mate_possible = True
-        print(f"{self.name} is trying to mate with {other.name}")
+        if verbose:
+            print(f"{self.name} is trying to mate with {other.name}")
         if other.age < SEXUAL_MATURITY:
-            print(f"{other.name} is too young to mate!")
+            if verbose:
+                print(f"{other.name} is too young to mate!")
             is_mate_possible = False
         if type(self) != type(other):
-            print(f"A {self.__class__.__name__} cannot mate with a {other.__class__.__name__}!")
+            if verbose:
+                print(f"A {self.__class__.__name__} cannot mate with a {other.__class__.__name__}!")
             is_mate_possible = False
         if self.gender == other.gender:
-            print(f"Two {'males' if self.gender == 'M' else 'females'} cannot mate together!")
+            if verbose:
+                print(f"Two {'males' if self.gender == 'M' else 'females'} cannot mate together!")
             is_mate_possible = False
         if is_mate_possible:
-            Utils.nice_print("A baby fish is born! Welcome to:")
             baby_fish = Fish.generate(type(self))
-            Utils.nice_print(baby_fish, Fore.MAGENTA)
+            Utils.nice_print(f"New born: {baby_fish}", Fore.MAGENTA)
             return baby_fish
         return None
     
-    def __str__(self, fish_type: str) -> str:
-        return f"{self.name} ({self.gender[0].upper()}), {self.age} days: {self.__class__.__name__} ({fish_type})[{self.pv} pv] -- {'🐠' if self.is_alive else '💀'}"
+    def __str__(self) -> str:
+        return f"{self.name}({self.gender[0].upper()}), {self.age} days, {self.pv} pv -- {'🐠' if self.is_alive else '💀'}"
