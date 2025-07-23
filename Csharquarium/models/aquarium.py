@@ -22,7 +22,7 @@ class Aquarium:
         if isinstance(alga, Alga):
             self.algae.append(alga)
     
-    def describe(self, verbose: bool = False) -> None:
+    def description(self, verbose: bool = False) -> str:
         Utils.nice_print(f"Algae in the aquarium: {len(self.algae)}", Fore.GREEN)
         if verbose:
             for alga in self.algae:
@@ -30,6 +30,14 @@ class Aquarium:
         Utils.nice_print(f"Fishes in the aquarium: {len(self.fishes)}", Fore.BLUE)
         if verbose:
             print("\n".join([str(fish) for fish in self.fishes]))
+    
+    def save_state(self, file_path = "data.aquarium"):
+        try:
+            with open(file_path, "w") as file:
+                file.write(self.describe)
+        except Exception e:
+            print(f"Could not write in file '{file_path}': {e}")
+
 
     def run_lifecycle(self) -> None:
         log = Log("./log.log")
