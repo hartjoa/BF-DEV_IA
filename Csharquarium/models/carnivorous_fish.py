@@ -3,8 +3,8 @@ from abc import abstractmethod
 import random
 
 class CarnivorousFish(Fish):
-    def __init(self, name: str, gender: str, sexuality: Sexualities) -> None:
-        super().__init__(name, gender, sexuality)
+    def __init(self, **kwargs) -> None:
+        super().__init__(**kwargs)
 
     def eat(self, prey: Fish, verbose: bool = False) -> None:
         if isinstance(prey, Fish):

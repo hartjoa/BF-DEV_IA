@@ -36,7 +36,7 @@ class Fish(AquaticOrganism):
             raise TypeError("Only fishes can be instanciated with the 'generate' method")
         name = f"{tp.__name__}-{random.randint(1, 1_000_000_000)}"
         gender = random.choice(["Male", "Female"])
-        return tp(name, gender)
+        return tp(name=name, gender=gender)
 
     def change_gender(self):
         self._gender = "M" if self._gender == "F" else "F"

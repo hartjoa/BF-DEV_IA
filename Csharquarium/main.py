@@ -26,7 +26,7 @@ for sp in species:
         my_aquarium.add_fish(fish)
 
 # add algae
-for _ in range(10):
+for _ in range(15):
     my_aquarium.add_alga(Alga())
 
 day = 1

@@ -4,8 +4,8 @@ from abc import abstractmethod
 import random
 
 class HerbivorousFish(Fish):
-    def __init__(self, name: str, gender: str, sexuality: Sexualities) -> None:
-        super().__init__(name, gender, sexuality)
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
 
     def eat(self, alga: Alga, verbose: bool = False) -> None:
         if isinstance(alga, Alga):
