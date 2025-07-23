@@ -6,8 +6,8 @@ from models.log import Log
 from utils import Utils
 
 from typing import List
-import random
 from colorama import Fore
+import random
 
 class Aquarium:
     def __init__(self, fishes: List[Fish] = None, algae: List[Alga] = None) -> None:
@@ -47,27 +47,21 @@ class Aquarium:
         for fish in self.fishes:
             fish.pv -= 1
 
-            # hunger fishes eat
             if fish.pv <= 5:
-                # fish is hungry
+                # hunger fishes eat
                 if isinstance(fish, HerbivorousFish):
                     # herbivorous
-                    print(f"{fish.name} is looking for an alga to eat...")
-                    if len(self.algae) == 0:
-                        # no more alga in the aquarium
-                        print(f"There's no more alga left to feed you, poor {fish.name}")
+                    alga = fish.find_alga(self)
+                    if not alga:
                         continue
-                    # find an alga and eat it
-                    alga = random.choice(self.algae)
+
                     fish.eat(alga)
                 elif isinstance(fish, CarnivorousFish):
-                    print(f"{fish.name} is looking for a fish to eat...")
-                    if len(self.fishes) < 2:
-                        # only fish in the aquarium
-                        print(f"There's no more fish left to feed you, poor {fish.name}")
+                    # carnivorous
+                    prey = fish.find_prey(self)
+                    if not prey:
                         continue
-                    # find a prey and eat it
-                    prey = random.choice([target for target in self.fishes if target != fish])
+
                     fish.eat(prey)
                 else:
                     raise TypeError("Any fish should be either carnivorous or herbivorous")
