@@ -82,8 +82,8 @@ class Aquarium:
 
         # all the dead algae dissapear
         dead_algae = [alga for alga in self.algae if not alga.is_alive]
+        Utils.nice_print(f"{len(dead_algae)} algae died...", Fore.RED)
         for dead_alga in dead_algae:
-            Utils.nice_print(f"An alga died...", Fore.RED)
             self.algae.remove(dead_alga)
         
         # all the dead fishes dissapear

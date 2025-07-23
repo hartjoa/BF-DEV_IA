@@ -26,13 +26,13 @@ for sp in species:
         my_aquarium.add_fish(fish)
 
 # add algae
-for _ in range(5):
+for _ in range(15):
     my_aquarium.add_alga(Alga())
 
 day = 1
 
 # run simulation
-for day in range(25):
+for day in range(100):
     Utils.nice_print(f"\n=== DAY {day + 1} ===", Fore.YELLOW)
     my_aquarium.run_lifecycle()
     my_aquarium.describe()
