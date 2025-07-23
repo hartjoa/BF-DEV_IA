@@ -2,13 +2,21 @@ from abc import abstractmethod
 from models.aquatic_organism import AquaticOrganism
 from utils import Utils
 from colorama import Fore
+from enum import Enum, auto
 
 import random
-SEXUAL_MATURITY = 3
 
+class Sexualities(Enum):
+        MONOSEXUAL = auto(),
+        AGE_BASED_HERMAPHRODITE = auto(), 
+        OPPORTUNISTIC_HERMAPHRODITE = auto()
+    
 class Fish(AquaticOrganism):
-    def __init__(self, name: str, gender: str) -> None:
+    SEXUAL_MATURITY = 3
+    
+    def __init__(self, name: str, gender: str, sexuality: Sexualities) -> None:
         super().__init__()
+        self.sexuality = sexuality
         self.name = name
         self.gender = "F" if gender and gender[0].upper() == "F" else "M"
     
@@ -26,12 +34,12 @@ class Fish(AquaticOrganism):
         
 
     def mate(self, other: "Fish", verbose: bool = False) -> None:
-        if self.age < SEXUAL_MATURITY:
+        if self.age < Fish.SEXUAL_MATURITY:
             return None
         is_mate_possible = True
         if verbose:
             print(f"{self.name} is trying to mate with {other.name}")
-        if other.age < SEXUAL_MATURITY:
+        if other.age < Fish.SEXUAL_MATURITY:
             if verbose:
                 print(f"{other.name} is too young to mate!")
             is_mate_possible = False

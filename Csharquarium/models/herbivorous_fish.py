@@ -1,11 +1,11 @@
-from models.fish import Fish
+from models.fish import Fish, Sexualities
 from models.alga import Alga
 from abc import abstractmethod
 import random
 
 class HerbivorousFish(Fish):
-    def __init__(self, name: str, gender: str) -> None:
-        super().__init__(name, gender)
+    def __init__(self, name: str, gender: str, sexuality: Sexualities) -> None:
+        super().__init__(name, gender, sexuality)
 
     def eat(self, alga: Alga, verbose: bool = False) -> None:
         if isinstance(alga, Alga):
