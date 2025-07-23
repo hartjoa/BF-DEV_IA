@@ -13,6 +13,7 @@ class Aquarium:
     def __init__(self, fishes: List[Fish] = None, algae: List[Alga] = None) -> None:
         self.algae = algae if algae is not None else []
         self.fishes = fishes if fishes is not None else []
+        self.age = 0
     
     def add_fish(self, fish: Fish) -> None:
         if isinstance(fish, Fish) and fish.is_alive:
@@ -22,14 +23,21 @@ class Aquarium:
         if isinstance(alga, Alga):
             self.algae.append(alga)
     
-    def description(self, verbose: bool = False) -> str:
-        Utils.nice_print(f"Algae in the aquarium: {len(self.algae)}", Fore.GREEN)
-        if verbose:
-            for alga in self.algae:
-                print(alga)
-        Utils.nice_print(f"Fishes in the aquarium: {len(self.fishes)}", Fore.BLUE)
-        if verbose:
-            print("\n".join([str(fish) for fish in self.fishes]))
+    def description(self) -> List[str]:
+        result = ["=== Day ==="]
+        result.append(str(self.age))
+        result.append(f"=== Algae ({len(self.algae)}) ===")
+        algae_by_age = {}
+        for alga in self.algae:
+            if alga.age in algae_by_age:
+                algae_by_age[alga.age] += 1
+            else:
+                algae_by_age[alga.age] = 1
+        for age, count in sorted(algae_by_age.items()):
+            result.append(f"{count} alga(e) - {age} days")
+        result.append(f"=== Fishes ({len(self.fishes)}) ===")
+        result.extend([str(fish) for fish in self.fishes])
+        return result
     
     def save_state(self, file_path = "data.aquarium"):
         try:
@@ -40,8 +48,6 @@ class Aquarium:
 
 
     def run_lifecycle(self, verbose: bool = False) -> None:
-        log = Log("./log.log")
-
         # everybody gets older
         for fish in self.fishes:
             fish.age += 1
@@ -99,5 +105,7 @@ class Aquarium:
         for dead_fish in dead_fishes:
             Utils.nice_print(f"A fish died... RIP {dead_fish.name}", Fore.RED)
             self.fishes.remove(dead_fish)
-        
+
+        # aquarium gets older
+        self.age += 1        
         
