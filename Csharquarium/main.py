@@ -18,10 +18,11 @@ os.system("cls" if os.name == "nt" else "clear")
 
 my_aquarium = Aquarium()
 # add fishes
-species = [Sole, ]
-for _ in range(10):
-    sole = Fish.generate(Sole)
-    my_aquarium.add_fish(sole)
+species = [Carp, Clownfish, Grouper, SeaBass, Sole, Tuna]
+for sp in species:
+    for _ in range(10):
+        fish = Fish.generate(sp)
+        my_aquarium.add_fish(fish)
 
 alga1 = Alga()
 alga2 = Alga()
@@ -29,27 +30,6 @@ alga3 = Alga()
 my_aquarium.add_alga(alga1)
 my_aquarium.add_alga(alga2)
 my_aquarium.add_alga(alga3)
-
-maurice = Sole("Maurice", "Male")
-maurice.age = 7
-dory = Clownfish("Dory", "Female")
-percy = Tuna("Percy", "Male")
-aglae = Sole("Aglae", "Female")
-aglae.age = 16
-ston = Carp("Ston", "Male")
-muut = Clownfish("Muût", "Male")
-oriana = Tuna("Oriana", "Female")
-oriana.age = 22
-johnson = Carp("Johnson", "Female")
-
-my_aquarium.add_fish(maurice)
-my_aquarium.add_fish(dory)
-my_aquarium.add_fish(percy)
-my_aquarium.add_fish(aglae)
-my_aquarium.add_fish(ston)
-my_aquarium.add_fish(muut)
-my_aquarium.add_fish(oriana)
-my_aquarium.add_fish(johnson)
 
 day = 1
 
