@@ -11,4 +11,4 @@ class Alga(AquaticOrganism):
         return new_alga
     
     def __str__(self) -> str:
-        return f"Alga [{self.pv} pv] -- {'🌿' if self.is_alive else '💀'}"
+        return f"Alga [{self.pv} pv - age: {self.age}] -- {'🌿' if self.is_alive else '💀'}"
