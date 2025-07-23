@@ -20,7 +20,7 @@ class Fish(AquaticOrganism):
         if self.age < SEXUAL_MATURITY:
             return None
         is_mate_possible = True
-        Utils.nice_print(f"{self.name} is trying to mate with {other.name}", Fore.MAGENTA)
+        print(f"{self.name} is trying to mate with {other.name}")
         if other.age < SEXUAL_MATURITY:
             print(f"{other.name} is too young to mate!")
             is_mate_possible = False
@@ -31,9 +31,9 @@ class Fish(AquaticOrganism):
             print(f"Two {'males' if self.gender == 'M' else 'females'} cannot mate together!")
             is_mate_possible = False
         if is_mate_possible:
-            Utils.nice_print("A baby fish is born! Welcome to:", Fore.MAGENTA)
+            Utils.nice_print("A baby fish is born! Welcome to:")
             baby_fish = type(self)(f"baby-{random.randint(1, 1_000_000)}", "M" if random.random() < .5 else "F")
-            print(baby_fish)
+            Utils.nice_print(baby_fish, Fore.MAGENTA)
             return baby_fish
         return None
     

@@ -35,9 +35,11 @@ class Aquarium:
     def run_lifecycle(self) -> None:
         log = Log("./log.log")
 
-        # all fishes get older
+        # everybody gets older
         for fish in self.fishes:
             fish.age += 1
+        for alga in self.algae:
+            alga.age +=1
 
         # all algae grow
         for alga in self.algae:
@@ -47,8 +49,9 @@ class Aquarium:
         for fish in self.fishes:
             fish.pv -= 1
 
+            # eat or mate
             if fish.pv <= 5:
-                # hunger fishes eat
+                # eat
                 if isinstance(fish, HerbivorousFish):
                     # herbivorous
                     alga = fish.find_alga(self)
@@ -66,12 +69,18 @@ class Aquarium:
                 else:
                     raise TypeError("Any fish should be either carnivorous or herbivorous")
             else:
-                # not hunger fishes try to mate
+                # mate
                 partner = random.choice([other_fish for other_fish in self.fishes if other_fish != fish])
                 baby_fish = fish.mate(partner)
                 if baby_fish:
                     self.add_fish(baby_fish)
         
+        # big algae split
+        for alga in self.algae:
+            if alga.pv >= 10:
+                new_alga = alga.split()
+                self.add_alga(new_alga)
+
         # all the dead algae dissapear
         dead_algae = [alga for alga in self.algae if not alga.is_alive]
         for dead_alga in dead_algae:
@@ -84,5 +93,4 @@ class Aquarium:
             Utils.nice_print(f"A fish died... RIP {dead_fish.name}", Fore.RED)
             self.fishes.remove(dead_fish)
         
-        for alga in self.algae:
-            alga.age +=1
+        
