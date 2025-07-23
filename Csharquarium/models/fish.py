@@ -18,11 +18,17 @@ class Fish(AquaticOrganism):
         super().__init__()
         self.sexuality = sexuality
         self.name = name
-        self.gender = "F" if gender and gender[0].upper() == "F" else "M"
+        self._gender = "F" if gender and gender[0].upper() == "F" else "M"
     
     @abstractmethod
     def eat(self, food):
         pass
+
+    @property
+    def gender(self):
+        if self.sexuality == Sexualities.AGE_BASED_HERMAPHRODITE:
+            return "M" if self.age <= 10 else "F"
+        return self._gender
     
     @staticmethod
     def generate(tp: type) -> "tp":
@@ -31,7 +37,9 @@ class Fish(AquaticOrganism):
         name = f"{tp.__name__}-{random.randint(1, 1_000_000_000)}"
         gender = random.choice(["Male", "Female"])
         return tp(name, gender)
-        
+
+    def change_gender(self):
+        self._gender = "M" if self._gender == "F" else "F"
 
     def mate(self, other: "Fish", verbose: bool = False) -> None:
         if self.age < Fish.SEXUAL_MATURITY:
@@ -48,9 +56,12 @@ class Fish(AquaticOrganism):
                 print(f"A {self.__class__.__name__} cannot mate with a {other.__class__.__name__}!")
             is_mate_possible = False
         if self.gender == other.gender:
-            if verbose:
-                print(f"Two {'males' if self.gender == 'M' else 'females'} cannot mate together!")
-            is_mate_possible = False
+            if self.sexuality == Sexualities.OPPORTUNISTIC_HERMAPHRODITE:
+                self.change_gender()
+            else:
+                if verbose:
+                    print(f"Two {'males' if self.gender == 'M' else 'females'} cannot mate together!")
+                is_mate_possible = False
         if is_mate_possible:
             baby_fish = Fish.generate(type(self))
             Utils.nice_print(f"New born: {baby_fish}", Fore.MAGENTA)
