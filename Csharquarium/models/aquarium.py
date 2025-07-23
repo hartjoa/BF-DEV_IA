@@ -35,7 +35,7 @@ class Aquarium:
     def run_lifecycle(self) -> None:
         log = Log("./log.log")
 
-        # everybody gets older
+        # all fishes get older
         for fish in self.fishes:
             fish.age += 1
 
@@ -57,32 +57,18 @@ class Aquarium:
                         # no more alga in the aquarium
                         print(f"There's no more alga left to feed you, poor {fish.name}")
                         continue
-                    # eat an alga
+                    # find an alga and eat it
                     alga = random.choice(self.algae)
-                    # alga is harmed
-                    alga.pv -= 2
-                    print(f"Alga loses 2 pv => {alga.pv}")
-                    # fish is fed
-                    fish.pv += 3
-                    print(f"Delicious! {fish.name} won 3pv => {fish.pv}")
+                    fish.eat(alga)
                 elif isinstance(fish, CarnivorousFish):
                     print(f"{fish.name} is looking for a fish to eat...")
                     if len(self.fishes) < 2:
                         # only fish in the aquarium
                         print(f"There's no more fish left to feed you, poor {fish.name}")
                         continue
-                    # eat a fish
-                    prey = random.choice(self.fishes)
-                    if type(prey) == type(fish):
-                        # cannot eat a fish like you
-                        print(f"Sorry {fish.name}, cannot eat a fish like you")
-                    else:
-                        # prey is harmed
-                        prey.pv -= 4
-                        print(f"{prey.name} loses 4 pv => {prey.pv}")
-                        # fish is fed
-                        fish.pv += 5
-                        print(f"Delicious! I loved you, {prey.name}... {fish.name} won 5pv => {fish.pv}")
+                    # find a prey and eat it
+                    prey = random.choice([target for target in self.fishes if target != fish])
+                    fish.eat(prey)
                 else:
                     raise TypeError("Any fish should be either carnivorous or herbivorous")
             else:
