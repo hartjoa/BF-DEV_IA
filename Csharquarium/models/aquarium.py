@@ -39,7 +39,7 @@ class Aquarium:
             print(f"Could not write in file '{file_path}': {e}")
 
 
-    def run_lifecycle(self) -> None:
+    def run_lifecycle(self, verbose: bool = False) -> None:
         log = Log("./log.log")
 
         # everybody gets older
@@ -61,24 +61,24 @@ class Aquarium:
                 # eat
                 if isinstance(fish, HerbivorousFish):
                     # herbivorous
-                    alga = fish.find_alga(self)
+                    alga = fish.find_alga(self, verbose)
                     if not alga:
                         continue
 
-                    fish.eat(alga)
+                    fish.eat(alga, verbose)
                 elif isinstance(fish, CarnivorousFish):
                     # carnivorous
-                    prey = fish.find_prey(self)
+                    prey = fish.find_prey(self, verbose)
                     if not prey:
                         continue
 
-                    fish.eat(prey)
+                    fish.eat(prey, verbose)
                 else:
                     raise TypeError("Any fish should be either carnivorous or herbivorous")
             else:
                 # mate
                 partner = random.choice([other_fish for other_fish in self.fishes if other_fish != fish])
-                baby_fish = fish.mate(partner)
+                baby_fish = fish.mate(partner, verbose)
                 if baby_fish:
                     self.add_fish(baby_fish)
         

@@ -14,9 +14,8 @@ class Sexualities(Enum):
 class Fish(AquaticOrganism):
     SEXUAL_MATURITY = 3
     
-    def __init__(self, name: str, gender: str, sexuality: Sexualities) -> None:
+    def __init__(self, name: str, gender: str) -> None:
         super().__init__()
-        self.sexuality = sexuality
         self.name = name
         self._gender = "F" if gender and gender[0].upper() == "F" else "M"
     
