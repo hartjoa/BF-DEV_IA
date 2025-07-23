@@ -15,6 +15,15 @@ class Fish(AquaticOrganism):
     @abstractmethod
     def eat(self, food):
         pass
+    
+    @staticmethod
+    def generate(tp: type) -> "tp":
+        if not issubclass(tp, Fish):
+            raise TypeError("Only fishes can be instanciated with the 'generate' method")
+        name = f"{tp.__name__}-{random.randint(1, 1_000_000_000)}"
+        gender = random.choice(["Male", "Female"])
+        return tp(name, gender)
+        
 
     def mate(self, other: "Fish") -> None:
         if self.age < SEXUAL_MATURITY:
@@ -32,7 +41,7 @@ class Fish(AquaticOrganism):
             is_mate_possible = False
         if is_mate_possible:
             Utils.nice_print("A baby fish is born! Welcome to:")
-            baby_fish = type(self)(f"baby-{random.randint(1, 1_000_000)}", "M" if random.random() < .5 else "F")
+            baby_fish = Fish.generate(type(self))
             Utils.nice_print(baby_fish, Fore.MAGENTA)
             return baby_fish
         return None

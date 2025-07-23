@@ -7,6 +7,7 @@ from models.tuna import Tuna
 from models.sole import Sole
 from models.sea_bass import SeaBass
 from models.carp import Carp
+from models.fish import Fish
 from utils import Utils
 
 import os
@@ -16,6 +17,12 @@ from colorama import Fore
 os.system("cls" if os.name == "nt" else "clear")
 
 my_aquarium = Aquarium()
+# add fishes
+species = [Sole, ]
+for _ in range(10):
+    sole = Fish.generate(Sole)
+    my_aquarium.add_fish(sole)
+
 alga1 = Alga()
 alga2 = Alga()
 alga3 = Alga()
