@@ -1,4 +1,4 @@
-from models.fish import Fish, Sexualities
+from .fish import Fish, Sexualities
 from abc import abstractmethod
 import random
 

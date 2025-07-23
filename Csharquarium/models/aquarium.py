@@ -1,8 +1,8 @@
-from models.alga import Alga
-from models.fish import Fish
-from models.herbivorous_fish import HerbivorousFish
-from models.carnivorous_fish import CarnivorousFish
-from models.log import Log
+from .alga import Alga
+from .fish import Fish
+from .herbivorous_fish import HerbivorousFish
+from .carnivorous_fish import CarnivorousFish
+from .log import Log
 from utils import Utils
 
 from typing import List
@@ -35,7 +35,7 @@ class Aquarium:
         try:
             with open(file_path, "w") as file:
                 file.write(self.describe)
-        except Exception e:
+        except Exception as e:
             print(f"Could not write in file '{file_path}': {e}")
 
 

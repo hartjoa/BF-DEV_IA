@@ -1,5 +1,5 @@
-from models.fish import Fish, Sexualities
-from models.alga import Alga
+from .fish import Fish, Sexualities
+from .alga import Alga
 from abc import abstractmethod
 import random
 

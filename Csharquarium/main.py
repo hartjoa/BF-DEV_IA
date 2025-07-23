@@ -35,5 +35,5 @@ day = 1
 for day in range(100):
     Utils.nice_print(f"\n=== DAY {day + 1} ===", Fore.YELLOW)
     my_aquarium.run_lifecycle()
-    my_aquarium.describe()
+    my_aquarium.description()
     

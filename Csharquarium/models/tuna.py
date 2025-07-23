@@ -1,5 +1,5 @@
-from models.carnivorous_fish import CarnivorousFish
-from models.fish import Fish, Sexualities
+from .carnivorous_fish import CarnivorousFish
+from .fish import Fish, Sexualities
 
 class Tuna(CarnivorousFish):
     def __init__(self, name: str, gender: str) -> None:

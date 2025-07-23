@@ -1,5 +1,5 @@
-from models.herbivorous_fish import HerbivorousFish
-from models.fish import Fish, Sexualities
+from .herbivorous_fish import HerbivorousFish
+from .fish import Fish, Sexualities
 
 class Sole(HerbivorousFish):
     def __init__(self, name: str, gender: str) -> None:

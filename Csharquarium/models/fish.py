@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from models.aquatic_organism import AquaticOrganism
+from .aquatic_organism import AquaticOrganism
 from utils import Utils
 from colorama import Fore
 from enum import Enum, auto
