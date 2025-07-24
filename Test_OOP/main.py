@@ -1,3 +1,8 @@
-from .models.class1 import Class1
-from .models.class2 import Class2
-from .models.class3 import Class3
+from models.enclos import Enclos
+
+# Tests
+
+# Crée enclos
+enclos1 = Enclos("Grande serre", 3)
+
+enclos1.menu()
